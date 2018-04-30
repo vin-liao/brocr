@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style/style.css')}}">
+</head>
+<body>
+
+<h1 id="cool">Something cool</h1>
+
+<div class="imagediv">
+	<img src="{{url_for('static',filename='blank.png')}}" width=100% id="image_file">
+	<input type="file" id="img_input" accept="image/jpeg, image/png" onchange="change_img(this);">
+	<button id="process">Process</button>
+</div>
+
+<div class="textdiv">
+	<form action="/cool">
+	Event Name:<br>
+	<input type="text" name="event_name" value="Mickey" id="event_id"><br><br>
+	Start Time:<br>
+	<input type="text" name="start_time" value="Mouse" id="start_id"><br><br>
+	End Time:<br>
+	<input type="text" name="end_time" value="Mickey" id="end_id"><br><br>
+	Date:<br>
+	<input type="text" name="date" value="Mouse" id="date_id"><br><br>
+	Location:<br>
+	<input type="text" name="location" value="Mickey" id="location_id"><br><br>
+	Description:<br>
+	<input type="text" name="description" value="Mouse" id="desc_id"><br><br>
+	<input type="submit" value="Submit">
+	</form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+	$(function(){
+		//https://www.quora.com/How-do-I-run-python-flask-file-when-click-a-HTML-button
+		$("#process").click(function(){
+			$.ajax({
+				type: 'POST',
+				url: 'http://127.0.0.1:5000/process',
+				data: {
+					"filename": $("#image_file").attr("src")
+				},
+				success: function(data) {
+					var d = new Date();
+					//adding time so that it doesn't load the image from cache
+					$("#image_file").attr("src", "{{url_for('static',filename='processed_image.jpg')}}?"+d.getTime());
+					$("#event_id").val(data['event_name']);
+					$("#start_id").val(data['start_time']);
+					$("#end_id").val(data['end_time']);
+					$("#date_id").val(data['date']);
+					$("#location_id").val(data['location']);
+					$("#desc_id").val(data['description']);
+				}
+			});
+		})
+	});
+
+	function change_img(input){
+		var fake_path = input.value;
+		var slash_idx = fake_path.lastIndexOf("\\");
+		var new_path = fake_path.slice(slash_idx+1);
+		document.getElementById("image_file").src = /static/ + new_path;
+	}
+
+</script>
+
+</body>
+</html>
