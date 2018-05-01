@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1 id="cool">Something cool</h1>
+<h1>brocr</h1>
 
 <div class="imagediv">
 	<img src="{{url_for('static',filename='blank.png')}}" width=100% id="image_file">
@@ -14,7 +14,7 @@
 </div>
 
 <div class="textdiv">
-	<form action="/cool">
+	<form action="/submit" id="submit_form">
 	Event Name:<br>
 	<input type="text" name="event_name" value="Mickey" id="event_id"><br><br>
 	Start Time:<br>
@@ -29,6 +29,7 @@
 	<input type="text" name="description" value="Mouse" id="desc_id"><br><br>
 	<input type="submit" value="Submit">
 	</form>
+	<p id="event_link"></p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -53,6 +54,28 @@
 					$("#date_id").val(data['date']);
 					$("#location_id").val(data['location']);
 					$("#desc_id").val(data['description']);
+				}
+			});
+		})
+
+		$("#submit_form").submit(function(e){
+			//prevent redirecting to other link
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: 'http://127.0.0.1:5000/submit',
+				data: {
+					"event_name": $("#event_id").val(),
+					"start_time": $("#start_id").val(),
+					"end_time": $("#end_id").val(),
+					"date": $("#date_id").val(),
+					"location": $("#location_id").val(),
+					"description": $("#desc_id").val()
+				},
+				success: function(data) {
+					//show link
+					var html_link = "<a href=" + data["event_link"] +">here</a>"
+					$("#event_link").html("Link for the event: " + html_link);
 				}
 			});
 		})

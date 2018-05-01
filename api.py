@@ -42,6 +42,7 @@ def insert_event(data):
 	    'timeZone': 'Asia/Jakarta',
 	}
 
-	Call the Calendar API
+	# Call the Calendar API
 	event = service.events().insert(calendarId='primary', body=event).execute()
 	print('Event created: %s' % (event.get('htmlLink')))
+	return event.get('htmlLink')
