@@ -219,57 +219,6 @@ def extract(text):
 		data['start_time'] = time_list[0]
 		data['end_time'] = time_list[1]
 
-
-	# try:
-	# 	for i in hh:
-	# 		if hh[i][-2:] == 'pm':
-	# 			if hh[i][:2].isdigit():
-	# 				hour = int(hh[i][:2])
-	# 				hour += 12
-	# 				hour = str(hour)
-	# 			if hh[i][:2].isdigit() == False and hh[i][0].isdigit():
-	# 				hour = int(hh[i][0])
-	# 				hour += 12
-	# 				hour = str(hour)
-
-	# 		elif hh[i][-2:] == 'am':
-	# 			if hh[i][:2].isdigit():
-	# 				hour = hh[0][:2]
-	# 			if hh[i][:2].isdigit() == False and hh[i][0].isdigit():
-	# 				hour = '0'+hh[i][0]
-
-	# 		if len(hh) == 1:
-	# 				data['start_time'] = hour + ':00'
-	# 				end = int(hour) + 2
-	# 				data['end_time'] = end + ':00'
-	# 		elif len(hh) >= 2:
-	# 			if i == 0:
-	# 				data['start_time'] = hour + ':00'
-	# 			elif i == 1:
-	# 				data['end_time'] = hour + ':00'
-
-				# if hh[0][0] == '0' and hh[0][:2].isdigit(): #09 am
-				# 	data['start_time'] = h[:2] + ':00'
-				# elif hh[0][:2].isdigit(): # 12 pm
-				# 	data['start_time'] = h[:2] + ':00'
-				# elif hh[0][:2].isdigit() == False and hh[0][0].isdigit(): #7pm
-				# 	data['start_time'] = '0' + h[0] + ':00'
-
-		# data['start_time'] = hour + ':00'
-
-		# data['end_time'] = hh[1]
-
-
-	'''
-	============================================================
-	date
-	
-	month date year
-	date-date month year
-	dd/mm/yyyy
-
-	'''
-
 	'''
 	============================================================
 	place
